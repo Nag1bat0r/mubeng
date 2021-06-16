@@ -17,9 +17,25 @@ func Transport(p string) (tr *http.Transport, err error) {
 		return nil, err
 	}
 
-	dialer, err := proxy.SOCKS5("tcp", proxyURL.Host, nil, proxy.Direct)
-	if err != nil {
-		return nil, err
+	ProxyPassword, pp := proxyURL.User.Password()
+        if pp = false {
+		dialer, err := proxy.SOCKS5("tcp", proxyURL.Host, nil, proxy.Direct)
+		if err != nil {
+			return nil, err
+		}
+        }
+	else
+	{
+	        auth :=proxy.Auth
+		{
+	        	User: proxyURL.User.Username(),
+	        	Password: my_password,
+	        }
+		dialer, err := proxy.SOCKS5("tcp", proxyURL.Host, &auth, proxy.Direct)
+		if err != nil {
+			return nil, err
+		}
+
 	}
 
 	switch proxyURL.Scheme {
