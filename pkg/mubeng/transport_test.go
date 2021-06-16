@@ -29,11 +29,26 @@ func TestTransport(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	dialer, err := proxy.SOCKS5("tcp", socks5URL.Host, nil, proxy.Direct)
-	if err != nil {
-		t.Fatal(err)
-	}
+	ProxyPassword, pp := socks5URL.User.Password()
+        if pp = false {
+		dialer, err := proxy.SOCKS5("tcp", socks5URL.Host, nil, proxy.Direct)
+		if err != nil {
+			return nil, err
+		}
+        }
+	else
+	{
+	        auth :=proxy.Auth
+		{
+	        	User: socks5URL.User.Username(),
+	        	Password: ProxyPassword,
+	        }
+		dialer, err := proxy.SOCKS5("tcp", socks5URL.Host, &auth, proxy.Direct)
+		if err != nil {
+			return nil, err
+		}
 
+	}
 	tests := []struct {
 		name    string
 		args    args
