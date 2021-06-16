@@ -29,7 +29,7 @@ func Transport(p string) (tr *http.Transport, err error) {
 	        auth :=proxy.Auth
 		{
 	        	User: proxyURL.User.Username(),
-	        	Password: my_password,
+	        	Password: ProxyPassword,
 	        }
 		dialer, err := proxy.SOCKS5("tcp", proxyURL.Host, &auth, proxy.Direct)
 		if err != nil {
