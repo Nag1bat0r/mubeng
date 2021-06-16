@@ -2,6 +2,11 @@
 
 All notable changes to this project should be documented in this file.
 
+### v0.4.6
+
+- Patch
+  - Add support socks5 proxy with auth. Format: socks5://user:password@ip:port
+
 ### v0.4.5
 
 - Patch
